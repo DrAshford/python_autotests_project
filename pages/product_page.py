@@ -27,12 +27,12 @@ class ProductPage(BasePage):
     
     #Проверить наличие сообщения о добавленном товаре
     def should_be_added_product(self):
-        assert self.is_element_present(*ProductPageLocators.ADDED_PRODUCT), 'Added product is not presented'
+        assert self.is_element_present(*ProductPageLocators.MESSAGE_ADDED_PRODUCT), 'Added product is not presented'
 
     #Получить название добавленного товара
     def get_added_product(self):
         self.should_be_added_product()
-        return self.get_element(*ProductPageLocators.ADDED_PRODUCT).text
+        return self.get_element(*ProductPageLocators.MESSAGE_ADDED_PRODUCT).text
 
     #Проверить наличие суммы корзины
     def should_be_basket_total(self):
@@ -41,3 +41,11 @@ class ProductPage(BasePage):
     def get_basket_total(self):
         self.should_be_basket_total()
         return self.get_element(*ProductPageLocators.BASKET_TOTAL).text
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.MESSAGE_ADDED_PRODUCT), \
+        'Success message is presented, but should not be'
+
+    def should_be_disappeared_of_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.MESSAGE_ADDED_PRODUCT), \
+        'Message not disappeared but should be'
