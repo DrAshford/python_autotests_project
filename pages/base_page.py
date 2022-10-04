@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from .locators import BasePageLocator
 import math
+import time
 
 
 class BasePage():
@@ -54,6 +55,10 @@ class BasePage():
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocator.LOGIN_LINK), 'Login link is not presented'
 
+    def go_to_basket_page(self):
+        link = self.browser.find_element(*BasePageLocator.BASKET_LINK)
+        link.click()    
+
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
@@ -61,6 +66,7 @@ class BasePage():
         alert.send_keys(answer)
         alert.accept()
         try:
+            #time.sleep(3000)
             alert = self.browser.switch_to.alert
             alert_text = alert.text
             print(f"Your code: {alert_text}")
